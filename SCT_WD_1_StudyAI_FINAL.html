@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyAI — Learn Smarter with AI</title>
+  <style>
+/* ═══════════════════════════════════════════
+   StudyAI — style.css
+   Dark futuristic theme with glassmorphism
+   SCT_WD_1
+═══════════════════════════════════════════ */
+
+/* ── CSS Variables ── */
+:root {
+  /* Dark theme (default) */
+  --bg:          #050510;
+  --bg2:         #0a0a1f;
+  --bg3:         #0f0f2a;
+  --surface:     rgba(255,255,255,0.04);
+  --surface-h:   rgba(255,255,255,0.08);
+  --glass:       rgba(10,10,35,0.6);
+  --glass-border:rgba(255,255,255,0.08);
+  --text:        #e8e8f4;
+  --text-muted:  #8888aa;
+  --text-dim:    #55556a;
+  --accent:      #6c63ff;
+  --accent2:     #00d4ff;
+  --accent3:     #ff6584;
+  --glow:        rgba(108,99,255,0.35);
+  --glow2:       rgba(0,212,255,0.25);
+  --border:      rgba(255,255,255,0.07);
+
+  --font-display:'Orbitron', sans-serif;
+  --font-body:   'Sora', sans-serif;
+  --radius:      14px;
+  --radius-lg:   22px;
+  --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --bg:          #f0f0fa;
+  --bg2:         #e8e8f5;
+  --bg3:         #ffffff;
+  --surface:     rgba(0,0,0,0.04);
+  --surface-h:   rgba(0,0,0,0.08);
+  --glass:       rgba(255,255,255,0.75);
+  --glass-border:rgba(0,0,0,0.1);
+  --text:        #1a1a2e;
+  --text-muted:  #555577;
+  --text-dim:    #9999aa;
+  --glow:        rgba(108,99,255,0.2);
+  --border:      rgba(0,0,0,0.08);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+a { text-decoration:none; color:inherit; }
+ul { list-style:none; }
+img { max-width:100%; }
+
+/* ── Utility ── */
+.container { max-width:1180px; margin:0 auto; padding:0 1.5rem; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.full-width { width:100%; justify-content:center; }
+.hide-mobile { display:inline; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.08);
+  opacity:0;
+  transition:opacity var(--transition);
+}
+.btn:hover::after { opacity:1; }
+.btn:active { transform:scale(0.97); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 0 24px var(--glow);
+}
+.btn-primary:hover {
+  box-shadow: 0 0 40px var(--glow), 0 8px 32px rgba(108,99,255,0.4);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--glow);
+}
+
+/* ── Loader ── */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+#loader.hidden { opacity:0; visibility:hidden; }
+
+.loader-inner { text-align:center; }
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+.loader-logo span { color: var(--accent); }
+
+.loader-bar {
+  width: 200px;
+  height: 3px;
+  background: var(--surface);
+  border-radius: 2px;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+}
+.loader-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  animation: loaderAnim 1.8s ease forwards;
+}
+@keyframes loaderAnim { from{width:0} to{width:100%} }
+.loader-text { font-size:0.8rem; color:var(--text-muted); letter-spacing:0.06em; }
+
+/* ── Back to Top ── */
+#backToTop {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  z-index: 500;
+  box-shadow: 0 0 20px var(--glow);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition);
+  pointer-events: none;
+}
+#backToTop.visible { opacity:1; transform:translateY(0); pointer-events:all; }
+#backToTop:hover { transform:translateY(-4px); box-shadow:0 0 32px var(--glow); }
+
+/* ══════════════════════════════════
+   NAVBAR
+══════════════════════════════════ */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 200;
+  padding: 1.25rem 0;
+  transition: all var(--transition);
+}
+#navbar.scrolled {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.85rem 0;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.3);
+}
+
+.nav-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 8px;
+  transition: color var(--transition);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+.nav-link:hover, .nav-link.active { color: var(--text); }
+.nav-link:hover::after, .nav-link.active::after { width: 70%; }
+
+.nav-actions { display:flex; align-items:center; gap:0.75rem; }
+
+.theme-toggle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+}
+.theme-toggle:hover { background:var(--surface-h); color:var(--accent); border-color:var(--accent); }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px;
+}
+.hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+/* ── Mobile overlay ── */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+.mobile-overlay.open { opacity:1; visibility:visible; }
+
+.overlay-close {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+}
+
+.overlay-links { list-style:none; text-align:center; }
+.overlay-links li { margin-bottom: 1rem; }
+.overlay-links a {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+.overlay-links a:hover { color: var(--accent); }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 8rem 5vw 4rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Animated blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  animation: blobFloat 8s ease-in-out infinite alternate;
+}
+.blob-1 { width:500px; height:500px; background:var(--accent); top:-150px; left:-100px; animation-duration:9s; }
+.blob-2 { width:400px; height:400px; background:var(--accent2); bottom:-100px; right:10%; animation-duration:11s; animation-delay:-3s; }
+.blob-3 { width:300px; height:300px; background:var(--accent3); top:40%; left:35%; animation-duration:7s; animation-delay:-5s; opacity:0.1; }
+
+@keyframes blobFloat {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(40px,30px) scale(1.08); }
+}
+
+/* Grid overlay */
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(var(--glass-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1.1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent2);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+.hero-badge i { color:var(--accent); }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+#typingTarget {
+  display: inline-block;
+  min-width: 2ch;
+  border-right: 3px solid var(--accent);
+  animation: blink 0.9s step-end infinite;
+}
+@keyframes blink { 50%{ border-color:transparent } }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+
+/* AI card illustration */
+.hero-illustration {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.ai-card {
+  width: 340px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: 0 20px 80px rgba(108,99,255,0.2), 0 0 0 1px var(--glass-border);
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-16px); }
+}
+
+.ai-card-header {
+  display:flex; align-items:center; gap:6px; margin-bottom:1rem;
+}
+.ai-dot { width:10px; height:10px; border-radius:50%; }
+.ai-dot.green{ background:#3dd68c; }
+.ai-dot.yellow{ background:#f7c948; }
+.ai-dot.red{ background:#f55; }
+.ai-title { margin-left:auto; font-size:0.78rem; color:var(--text-muted); font-weight:500; }
+
+.ai-chat { display:flex; flex-direction:column; gap:8px; margin-bottom:1rem; }
+.ai-msg {
+  padding:0.6rem 0.9rem;
+  border-radius:12px;
+  font-size:0.82rem;
+  line-height:1.4;
+}
+.ai-msg.bot {
+  background: rgba(108,99,255,0.12);
+  border: 1px solid rgba(108,99,255,0.2);
+  color:var(--text);
+  display:flex; gap:8px; align-items:flex-start;
+}
+.ai-msg.bot i { color:var(--accent); margin-top:2px; flex-shrink:0; }
+.ai-msg.user {
+  background: rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.15);
+  color:var(--text-muted);
+  align-self:flex-end;
+}
+
+.ai-code {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border);
+  border-radius:8px;
+  padding:0.75rem 1rem;
+  font-family:'Courier New',monospace;
+  font-size:0.75rem;
+  color:var(--text-muted);
+  line-height:1.6;
+}
+.code-kw { color:#ff79c6; }
+.code-num { color:#bd93f9; }
+
+.ai-typing {
+  display:flex; gap:5px; padding:0.5rem 0.9rem;
+  background:rgba(108,99,255,0.08); border-radius:12px; width:fit-content;
+}
+.ai-typing span {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--accent);
+  animation:typingDot 1.2s ease-in-out infinite;
+}
+.ai-typing span:nth-child(2){ animation-delay:0.2s; }
+.ai-typing span:nth-child(3){ animation-delay:0.4s; }
+@keyframes typingDot { 0%,100%{transform:translateY(0);opacity:0.4} 50%{transform:translateY(-5px);opacity:1} }
+
+/* Orbit rings */
+.orbit {
+  position:absolute;
+  border-radius:50%;
+  border:1px dashed rgba(108,99,255,0.25);
+  pointer-events:none;
+  animation:spin linear infinite;
+}
+.orbit-1 { width:420px; height:420px; top:50%; left:50%; transform:translate(-50%,-50%); animation-duration:20s; }
+.orbit-2 { width:520px; height:520px; top:50%; left:50%; transform:translate(-50%,-50%); animation-duration:30s; animation-direction:reverse; }
+@keyframes spin { to{ transform:translate(-50%,-50%) rotate(360deg); } }
+
+/* Float badges */
+.float-badge {
+  position:absolute;
+  background: var(--glass);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--glass-border);
+  border-radius:100px;
+  padding:0.45rem 1rem;
+  font-size:0.8rem;
+  font-weight:600;
+  display:flex; align-items:center; gap:6px;
+  animation:float 5s ease-in-out infinite;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+}
+.badge-dsa { top:-30px; right:-20px; color:var(--accent); animation-delay:-1s; }
+.badge-dsa i { color:var(--accent); }
+.badge-ml  { bottom:20px; left:-40px; color:var(--accent2); animation-delay:-2s; }
+.badge-ml i { color:var(--accent2); }
+.badge-cp  { top:40%; left:-50px; color:#f7c948; animation-delay:-0.5s; }
+.badge-cp i { color:#f7c948; }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position:absolute;
+  bottom:2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  color:var(--text-dim); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+}
+.scroll-line {
+  width:1px; height:50px;
+  background:linear-gradient(to bottom, var(--accent), transparent);
+  animation:scrollDrop 2s ease-in-out infinite;
+}
+@keyframes scrollDrop {
+  0%{ transform:scaleY(0); transform-origin:top; opacity:1; }
+  50%{ transform:scaleY(1); transform-origin:top; }
+  100%{ transform:scaleY(0); transform-origin:bottom; opacity:0; }
+}
+
+/* ══════════════════════════════════
+   STATISTICS
+══════════════════════════════════ */
+.stats {
+  padding:5rem 5vw;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.stats-grid {
+  max-width:1180px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px;
+  background:var(--border);
+}
+.stat-card {
+  background:var(--bg2);
+  padding:3rem 2rem; text-align:center;
+  transition:background var(--transition);
+}
+.stat-card:hover { background:var(--surface); }
+.stat-icon { font-size:2rem; color:var(--accent); margin-bottom:1rem; }
+.stat-num {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;
+  letter-spacing:-0.02em;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:0.4rem;
+}
+.stat-label { font-size:0.85rem; color:var(--text-muted); font-weight:500; letter-spacing:0.04em; }
+
+/* ══════════════════════════════════
+   SECTIONS
+══════════════════════════════════ */
+.section {
+  padding: 7rem 0;
+  position:relative;
+}
+.hiw-section { background:var(--bg2); }
+
+.section-header {
+  text-align:center;
+  margin-bottom: 4.5rem;
+}
+.section-tag {
+  display:inline-block;
+  background:rgba(108,99,255,0.1);
+  border:1px solid rgba(108,99,255,0.25);
+  color:var(--accent);
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:0.4rem 1rem;
+  border-radius:100px;
+  margin-bottom:1.2rem;
+}
+.section-header h2 {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;
+  letter-spacing:-0.02em;
+  margin-bottom:1rem;
+}
+.section-header p { color:var(--text-muted); font-size:1.05rem; max-width:520px; margin:0 auto; line-height:1.7; }
+
+/* ══════════════════════════════════
+   FEATURES
+══════════════════════════════════ */
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+}
+
+.feature-card {
+  position:relative; overflow:hidden;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2.25rem;
+  transition:all var(--transition);
+  animation-delay:var(--delay,0s);
+  cursor:default;
+}
+.feature-card:hover {
+  border-color:rgba(108,99,255,0.4);
+  transform:translateY(-8px);
+  box-shadow:0 20px 60px rgba(108,99,255,0.15);
+  background:var(--surface-h);
+}
+.feature-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 0 0, rgba(108,99,255,0.08), transparent 70%);
+  opacity:0; transition:opacity var(--transition);
+}
+.feature-card:hover .feature-glow { opacity:1; }
+
+.feature-icon {
+  width:52px; height:52px;
+  background:linear-gradient(135deg, rgba(108,99,255,0.15), rgba(0,212,255,0.1));
+  border:1px solid rgba(108,99,255,0.25);
+  border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color:var(--accent);
+  margin-bottom:1.25rem;
+  transition:all var(--transition);
+}
+.feature-card:hover .feature-icon {
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 8px 24px var(--glow);
+  border-color:transparent;
+}
+.feature-card h3 {
+  font-family:var(--font-display);
+  font-size:1.05rem; font-weight:700;
+  letter-spacing:0.02em; margin-bottom:0.7rem;
+}
+.feature-card p { font-size:0.9rem; color:var(--text-muted); line-height:1.7; }
+
+/* ══════════════════════════════════
+   HOW IT WORKS — TIMELINE
+══════════════════════════════════ */
+.timeline {
+  position:relative;
+  display:flex; flex-direction:column; gap:3rem;
+  padding-left:80px;
+  max-width:700px; margin:0 auto;
+}
+.timeline-line {
+  position:absolute;
+  top:0; bottom:0; left:28px;
+  width:2px;
+  background:linear-gradient(to bottom, var(--accent), transparent);
+}
+.timeline-step {
+  position:relative;
+  display:flex; gap:2rem; align-items:flex-start;
+  animation-delay:var(--delay,0s);
+}
+.step-node {
+  position:absolute;
+  left:-52px;
+  width:44px; height:44px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display);
+  font-size:0.7rem; font-weight:900; color:#fff;
+  box-shadow:0 0 20px var(--glow);
+  flex-shrink:0;
+}
+.step-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:1.75rem;
+  flex:1;
+  transition:all var(--transition);
+}
+.step-card:hover {
+  border-color:rgba(108,99,255,0.3);
+  transform:translateX(6px);
+}
+.step-icon {
+  font-size:1.5rem; color:var(--accent); margin-bottom:0.75rem;
+}
+.step-card h3 {
+  font-family:var(--font-display);
+  font-size:1rem; font-weight:700; margin-bottom:0.5rem; letter-spacing:0.02em;
+}
+.step-card p { font-size:0.9rem; color:var(--text-muted); line-height:1.7; }
+
+/* ══════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════ */
+.testimonials-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;
+}
+.testi-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2rem;
+  transition:all var(--transition);
+  animation-delay:var(--delay,0s);
+}
+.testi-card:hover {
+  border-color:rgba(108,99,255,0.3);
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.2);
+}
+.testi-stars { color:#f7c948; font-size:0.9rem; margin-bottom:1rem; letter-spacing:2px; }
+.testi-text {
+  font-size:0.92rem; color:var(--text-muted); line-height:1.75;
+  margin-bottom:1.5rem;
+  font-style:italic;
+}
+.testi-author { display:flex; align-items:center; gap:12px; }
+.testi-avatar {
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.85rem; font-weight:700; color:#fff; flex-shrink:0;
+}
+.testi-name { font-weight:600; font-size:0.9rem; }
+.testi-role { font-size:0.78rem; color:var(--text-muted); }
+
+/* ══════════════════════════════════
+   PRICING
+══════════════════════════════════ */
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;
+  align-items:start;
+}
+.price-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2.5rem 2rem;
+  transition:all var(--transition);
+  position:relative;
+  animation-delay:var(--delay,0s);
+}
+.price-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(0,0,0,0.2); }
+.price-card.featured {
+  border-color:rgba(108,99,255,0.5);
+  background:linear-gradient(135deg,rgba(108,99,255,0.08),rgba(0,212,255,0.04));
+  box-shadow:0 0 40px rgba(108,99,255,0.15);
+}
+.price-badge {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff; font-size:0.72rem; font-weight:700; letter-spacing:0.06em;
+  padding:0.3rem 1.2rem; border-radius:100px; white-space:nowrap;
+}
+.price-name {
+  font-family:var(--font-display);
+  font-size:1.1rem; font-weight:900; letter-spacing:0.05em; margin-bottom:0.75rem;
+}
+.price-amount {
+  font-family:var(--font-display);
+  font-size:2.5rem; font-weight:900; letter-spacing:-0.03em;
+  color:var(--text); margin-bottom:0.4rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.price-amount span { font-size:1rem; font-weight:400; -webkit-text-fill-color:var(--text-muted); }
+.price-desc { font-size:0.85rem; color:var(--text-muted); margin-bottom:2rem; }
+.price-features { margin-bottom:2rem; display:flex; flex-direction:column; gap:0.75rem; }
+.price-features li {
+  display:flex; align-items:center; gap:10px;
+  font-size:0.88rem; color:var(--text-muted);
+}
+.price-features li i { width:16px; }
+.price-features li:not(.disabled) i { color:var(--accent2); }
+.price-features li.disabled { opacity:0.4; }
+.price-features li.disabled i { color:var(--accent3); }
+
+/* ══════════════════════════════════
+   CONTACT
+══════════════════════════════════ */
+.contact-wrap {
+  display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:start;
+}
+.contact-info { padding-top:1rem; }
+.contact-item {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:1.5rem;
+  font-size:0.9rem; color:var(--text-muted);
+}
+.contact-item i {
+  width:38px; height:38px; border-radius:10px;
+  background:rgba(108,99,255,0.1); border:1px solid rgba(108,99,255,0.2);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--accent); font-size:0.9rem; flex-shrink:0;
+}
+.contact-socials { display:flex; gap:0.75rem; margin-top:2rem; }
+.social-btn {
+  width:42px; height:42px; border-radius:50%;
+  background:var(--surface); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text-muted); font-size:1rem;
+  transition:all var(--transition);
+}
+.social-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-3px); }
+
+.contact-form { display:flex; flex-direction:column; gap:1.25rem; }
+.form-group { display:flex; flex-direction:column; gap:0.5rem; }
+.form-group label { font-size:0.82rem; font-weight:600; color:var(--text-muted); letter-spacing:0.04em; }
+.form-group input,
+.form-group textarea {
+  padding:0.9rem 1.1rem;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:0.92rem;
+  transition:border-color var(--transition), box-shadow var(--transition);
+  resize:vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(108,99,255,0.15);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color:var(--text-dim); }
+
+.form-success {
+  display:none;
+  text-align:center;
+  padding:1rem;
+  background:rgba(61,214,140,0.1);
+  border:1px solid rgba(61,214,140,0.3);
+  border-radius:var(--radius);
+  color:#3dd68c;
+  font-size:0.9rem;
+  font-weight:600;
+}
+.form-success.show { display:block; animation:fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+.footer {
+  padding:5rem 0 2rem;
+  border-top:1px solid var(--border);
+  background:var(--bg2);
+}
+.footer-grid {
+  display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:3rem;
+  margin-bottom:4rem;
+}
+.footer-brand .nav-logo { display:inline-block; margin-bottom:1rem; }
+.footer-brand p { font-size:0.88rem; color:var(--text-muted); line-height:1.7; margin-bottom:1.5rem; }
+.footer-socials { display:flex; gap:0.75rem; }
+.footer-socials a {
+  width:38px; height:38px; border-radius:50%;
+  background:var(--surface); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text-muted); font-size:0.9rem;
+  transition:all var(--transition);
+}
+.footer-socials a:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+.footer-col h4 {
+  font-family:var(--font-display);
+  font-size:0.78rem; font-weight:900; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--text);
+  margin-bottom:1.25rem;
+}
+.footer-col a {
+  display:block; font-size:0.88rem; color:var(--text-muted);
+  margin-bottom:0.75rem; transition:color var(--transition);
+}
+.footer-col a:hover { color:var(--accent); }
+
+.footer-bottom {
+  border-top:1px solid var(--border); padding-top:2rem;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+  font-size:0.82rem; color:var(--text-dim);
+}
+
+/* ══════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════ */
+.reveal {
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+  transition-delay:var(--delay,0s);
+}
+.reveal.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-right {
+  opacity:0;
+  transform:translateX(40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+  transition-delay:0.2s;
+}
+.reveal-right.visible {
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media (max-width:1024px) {
+  .hero { flex-direction:column; text-align:center; padding-top:10rem; }
+  .hero-btns { justify-content:center; }
+  .hero-illustration { margin-top:2rem; }
+  .ai-card { width:300px; }
+  .orbit-1 { width:360px; height:360px; }
+  .orbit-2 { width:440px; height:440px; }
+  .contact-wrap { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hide-mobile { display:none; }
+
+  .hero { padding:8rem 1.5rem 4rem; }
+  .timeline { padding-left:60px; }
+  .timeline-line { left:20px; }
+  .step-node { left:-40px; width:36px; height:36px; font-size:0.65rem; }
+
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .footer-brand { grid-column:1/-1; }
+
+  .badge-dsa, .badge-ml, .badge-cp { display:none; }
+}
+
+@media (max-width:480px) {
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .footer-grid { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+  .hero-title { font-size:2.5rem; }
+}
+
+</style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════ -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">Study<span>AI</span></div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <p class="loader-text">Initialising AI Engine...</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       BACK TO TOP
+  ═══════════════════════════════════════ -->
+  <button id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">Study<span>AI</span></a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Dark/Light toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+        <!-- Hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <button class="overlay-close" id="overlayClose" aria-label="Close menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <ul class="overlay-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <!-- Floating BG blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <!-- Grid overlay -->
+    <div class="hero-grid"></div>
+
+    <div class="hero-content reveal">
+      <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Powered by Next-Gen AI</div>
+      <h1 class="hero-title">Learn <span class="gradient-text" id="typingTarget"></span><br/>with AI</h1>
+      <p class="hero-sub">Your personal AI tutor for coding, DSA, interview preparation,<br class="hide-mobile"/> and academic success.</p>
+      <div class="hero-btns">
+        <a href="#pricing" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        <a href="#how-it-works" class="btn btn-ghost"><i class="fa-solid fa-play"></i> Watch Demo</a>
+      </div>
+    </div>
+
+    <!-- Floating AI illustration -->
+    <div class="hero-illustration reveal-right">
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <span class="ai-dot green"></span><span class="ai-dot yellow"></span><span class="ai-dot red"></span>
+          <span class="ai-title">AI Tutor</span>
+        </div>
+        <div class="ai-chat">
+          <div class="ai-msg bot"><i class="fa-solid fa-robot"></i> Explain Binary Search?</div>
+          <div class="ai-msg user">Sure! Binary search works by...</div>
+          <div class="ai-msg bot"><i class="fa-solid fa-robot"></i> Great! Try this problem 🧠</div>
+          <div class="ai-code">
+            <span class="code-kw">def</span> binary_search(arr, x):<br/>
+            &nbsp;&nbsp;lo, hi = <span class="code-num">0</span>, len(arr)<br/>
+            &nbsp;&nbsp;<span class="code-kw">while</span> lo &lt; hi: ...
+          </div>
+        </div>
+        <div class="ai-typing"><span></span><span></span><span></span></div>
+      </div>
+      <!-- Orbiting rings -->
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="float-badge badge-dsa"><i class="fa-solid fa-code"></i> DSA</div>
+      <div class="float-badge badge-ml"><i class="fa-solid fa-brain"></i> ML</div>
+      <div class="float-badge badge-cp"><i class="fa-solid fa-trophy"></i> CP</div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       STATISTICS
+  ═══════════════════════════════════════ -->
+  <section class="stats" id="stats">
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <i class="fa-solid fa-users stat-icon"></i>
+        <div class="stat-num" data-target="50000" data-suffix="+ ">0</div>
+        <div class="stat-label">Students</div>
+      </div>
+      <div class="stat-card reveal">
+        <i class="fa-solid fa-circle-question stat-icon"></i>
+        <div class="stat-num" data-target="1000000" data-suffix="+ ">0</div>
+        <div class="stat-label">Questions Solved</div>
+      </div>
+      <div class="stat-card reveal">
+        <i class="fa-solid fa-chart-line stat-icon"></i>
+        <div class="stat-num" data-target="95" data-suffix="% ">0</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+      <div class="stat-card reveal">
+        <i class="fa-solid fa-headset stat-icon"></i>
+        <div class="stat-num" data-target="24" data-suffix="/7 ">0</div>
+        <div class="stat-label">AI Support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FEATURES
+  ═══════════════════════════════════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Core Features</div>
+        <h2>Everything you need to <span class="gradient-text">excel</span></h2>
+        <p>Six powerful tools crafted by AI experts to accelerate your learning journey.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal" style="--delay:0.1s">
+          <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+          <h3>AI Tutor</h3>
+          <p>Get instant, personalized explanations for any concept — from basics to advanced topics.</p>
+          <div class="feature-glow"></div>
+        </div>
+        <div class="feature-card reveal" style="--delay:0.15s">
+          <div class="feature-icon"><i class="fa-solid fa-diagram-project"></i></div>
+          <h3>DSA Practice</h3>
+          <p>Master Data Structures & Algorithms with 500+ curated problems and AI-guided hints.</p>
+          <div class="feature-glow"></div>
+        </div>
+        <div class="feature-card reveal" style="--delay:0.2s">
+          <div class="feature-icon"><i class="fa-solid fa-comments"></i></div>
+          <h3>Mock Interviews</h3>
+          <p>Simulate real FAANG interviews with AI that adapts to your level and gives live feedback.</p>
+          <div class="feature-glow"></div>
+        </div>
+        <div class="feature-card reveal" style="--delay:0.25s">
+          <div class="feature-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <h3>Resume Review</h3>
+          <p>AI scans your resume against job descriptions and suggests targeted improvements.</p>
+          <div class="feature-glow"></div>
+        </div>
+        <div class="feature-card reveal" style="--delay:0.3s">
+          <div class="feature-icon"><i class="fa-solid fa-terminal"></i></div>
+          <h3>Coding Challenges</h3>
+          <p>Daily challenges across 10+ languages with automated testing and leaderboards.</p>
+          <div class="feature-glow"></div>
+        </div>
+        <div class="feature-card reveal" style="--delay:0.35s">
+          <div class="feature-icon"><i class="fa-solid fa-chart-bar"></i></div>
+          <h3>Progress Tracking</h3>
+          <p>Visual dashboards, streaks, XP points, and AI-generated weekly study reports.</p>
+          <div class="feature-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════ -->
+  <section class="section hiw-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">The Process</div>
+        <h2>Up and running in <span class="gradient-text">4 steps</span></h2>
+        <p>From sign-up to your first AI session in under 5 minutes.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-step reveal" style="--delay:0.05s">
+          <div class="step-node">01</div>
+          <div class="step-card">
+            <div class="step-icon"><i class="fa-solid fa-user-plus"></i></div>
+            <h3>Sign Up</h3>
+            <p>Create your free account in seconds. No credit card required to get started.</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal" style="--delay:0.15s">
+          <div class="step-node">02</div>
+          <div class="step-card">
+            <div class="step-icon"><i class="fa-solid fa-route"></i></div>
+            <h3>Choose Learning Path</h3>
+            <p>Pick from DSA, Web Dev, System Design, ML and more. AI tailors a roadmap for you.</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal" style="--delay:0.25s">
+          <div class="step-node">03</div>
+          <div class="step-card">
+            <div class="step-icon"><i class="fa-solid fa-brain"></i></div>
+            <h3>Practice with AI</h3>
+            <p>Solve problems, get hints, watch explanations, and ace mock interviews — all AI-driven.</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal" style="--delay:0.35s">
+          <div class="step-node">04</div>
+          <div class="step-card">
+            <div class="step-icon"><i class="fa-solid fa-trophy"></i></div>
+            <h3>Track Progress</h3>
+            <p>See your growth with visual dashboards, XP, streaks and weekly AI performance reports.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TESTIMONIALS
+  ═══════════════════════════════════════ -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Student Love</div>
+        <h2>What our <span class="gradient-text">learners</span> say</h2>
+        <p>Join 50,000+ students who transformed their careers with StudyAI.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testi-card reveal" style="--delay:0.1s">
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testi-text">"StudyAI's mock interviews helped me land my dream job at Google. The AI feedback is incredibly detailed — like having a senior engineer mentor you 24/7."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2)">AK</div>
+            <div>
+              <div class="testi-name">Arjun Kumar</div>
+              <div class="testi-role">SWE @ Google · Ex-Student</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal" style="--delay:0.2s">
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testi-text">"The DSA Practice section is gold. 500+ problems with AI-guided hints means I never get stuck for too long. My LeetCode rating went from 1200 to 1900 in 3 months!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">PR</div>
+            <div>
+              <div class="testi-name">Priya Reddy</div>
+              <div class="testi-role">CS Student · IIT Bombay</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal" style="--delay:0.3s">
+          <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p class="testi-text">"The Resume Review feature alone is worth the subscription. The AI rewrote my bullet points and I started getting 3x more recruiter calls within a week of applying."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">MS</div>
+            <div>
+              <div class="testi-name">Mohammed Shah</div>
+              <div class="testi-role">SDE @ Amazon · Hyderabad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PRICING
+  ═══════════════════════════════════════ -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Pricing</div>
+        <h2>Simple, <span class="gradient-text">transparent</span> pricing</h2>
+        <p>Start free, scale when you're ready.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="price-card reveal" style="--delay:0.1s">
+          <div class="price-name">Starter</div>
+          <div class="price-amount">₹0 <span>/month</span></div>
+          <div class="price-desc">Perfect to explore the platform.</div>
+          <ul class="price-features">
+            <li><i class="fa-solid fa-check"></i> 50 AI Questions/month</li>
+            <li><i class="fa-solid fa-check"></i> 100 Practice Problems</li>
+            <li><i class="fa-solid fa-check"></i> Basic Progress Dashboard</li>
+            <li><i class="fa-solid fa-check"></i> Community Access</li>
+            <li class="disabled"><i class="fa-solid fa-xmark"></i> Mock Interviews</li>
+            <li class="disabled"><i class="fa-solid fa-xmark"></i> Resume Review</li>
+          </ul>
+          <a href="#" class="btn btn-ghost full-width">Get Started Free</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="price-card featured reveal" style="--delay:0.2s">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-name">Pro</div>
+          <div class="price-amount">₹499 <span>/month</span></div>
+          <div class="price-desc">For serious learners and job seekers.</div>
+          <ul class="price-features">
+            <li><i class="fa-solid fa-check"></i> Unlimited AI Questions</li>
+            <li><i class="fa-solid fa-check"></i> All 500+ Practice Problems</li>
+            <li><i class="fa-solid fa-check"></i> Advanced Analytics</li>
+            <li><i class="fa-solid fa-check"></i> 10 Mock Interviews/month</li>
+            <li><i class="fa-solid fa-check"></i> 3 Resume Reviews/month</li>
+            <li><i class="fa-solid fa-check"></i> Priority Support</li>
+          </ul>
+          <a href="#" class="btn btn-primary full-width">Start Pro Trial</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="price-card reveal" style="--delay:0.3s">
+          <div class="price-name">Enterprise</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-desc">For colleges, bootcamps &amp; teams.</div>
+          <ul class="price-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Pro</li>
+            <li><i class="fa-solid fa-check"></i> Bulk Seat Licensing</li>
+            <li><i class="fa-solid fa-check"></i> Admin Dashboard</li>
+            <li><i class="fa-solid fa-check"></i> Unlimited Interviews</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated AI Model</li>
+            <li><i class="fa-solid fa-check"></i> SLA &amp; Onboarding</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost full-width">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2>Have a <span class="gradient-text">question?</span></h2>
+        <p>We'll get back to you within 24 hours.</p>
+      </div>
+
+      <div class="contact-wrap reveal">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>hello@studyai.in</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Hyderabad, Telangana, India</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-brands fa-discord"></i>
+            <span>discord.gg/studyai</span>
+          </div>
+          <div class="contact-socials">
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+          <div class="form-success" id="formSuccess">
+            <i class="fa-solid fa-circle-check"></i> Message sent! We'll be in touch soon.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">Study<span>AI</span></div>
+          <p>The smartest way to prepare for tech careers. AI-powered, student-first.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#">Roadmap</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">Blog</a>
+          <a href="#">Community</a>
+          <a href="#">DSA Sheet</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#contact">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 StudyAI Technologies. All rights reserved. &nbsp;|&nbsp; SCT_WD_1</p>
+        <p>Made with <i class="fa-solid fa-heart" style="color:#f55"></i> in Hyderabad</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+/* ═══════════════════════════════════════════
+   StudyAI — script.js
+   All interactivity: loader, navbar, typing,
+   counters, scroll reveal, dark/light, form
+   SCT_WD_1
+═══════════════════════════════════════════ */
+
+/* ──────────────────────────────
+   1. LOADING SCREEN
+────────────────────────────── */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+
+  // Hide loader after 2 seconds (matches CSS animation of loader-fill)
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    // Trigger hero reveal animations after loader hides
+    triggerReveal();
+  }, 2000);
+});
+
+/* ──────────────────────────────
+   2. NAVBAR — scroll behaviour
+────────────────────────────── */
+const navbar   = document.getElementById('navbar');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  // Glassmorphism on scroll
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+
+  // Back-to-top visibility
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+
+  // Active nav link based on section in view
+  updateActiveNav();
+});
+
+function updateActiveNav() {
+  const sections = document.querySelectorAll('section[id], div[id="stats"]');
+  let current = '';
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 120;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* ──────────────────────────────
+   3. MOBILE MENU
+────────────────────────────── */
+const hamburger    = document.getElementById('hamburger');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const overlayClose = document.getElementById('overlayClose');
+
+hamburger.addEventListener('click', () => {
+  mobileOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+function closeMenu() {
+  mobileOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+overlayClose.addEventListener('click', closeMenu);
+
+// Close when any overlay link is clicked
+document.querySelectorAll('.overlay-links a').forEach(a => {
+  a.addEventListener('click', closeMenu);
+});
+
+/* ──────────────────────────────
+   4. DARK / LIGHT MODE TOGGLE
+────────────────────────────── */
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon   = document.getElementById('themeIcon');
+const htmlEl      = document.documentElement;
+
+// Persist preference
+const savedTheme = localStorage.getItem('studyai-theme') || 'dark';
+htmlEl.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const current = htmlEl.getAttribute('data-theme');
+  const next    = current === 'dark' ? 'light' : 'dark';
+  htmlEl.setAttribute('data-theme', next);
+  localStorage.setItem('studyai-theme', next);
+  updateThemeIcon(next);
+});
+
+function updateThemeIcon(theme) {
+  themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+}
+
+/* ──────────────────────────────
+   5. BACK TO TOP
+────────────────────────────── */
+document.getElementById('backToTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ──────────────────────────────
+   6. TYPING TEXT EFFECT (Hero)
+────────────────────────────── */
+const typingTarget = document.getElementById('typingTarget');
+const words = ['Smarter', 'Faster', 'Deeper', 'Better'];
+let wordIdx  = 0;
+let charIdx  = 0;
+let deleting = false;
+
+function typeEffect() {
+  const currentWord = words[wordIdx];
+
+  if (!deleting) {
+    // Typing forward
+    typingTarget.textContent = currentWord.slice(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === currentWord.length) {
+      // Pause before deleting
+      deleting = true;
+      setTimeout(typeEffect, 1800);
+      return;
+    }
+  } else {
+    // Deleting
+    typingTarget.textContent = currentWord.slice(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) {
+      deleting = false;
+      wordIdx  = (wordIdx + 1) % words.length;
+    }
+  }
+
+  const speed = deleting ? 60 : 110;
+  setTimeout(typeEffect, speed);
+}
+
+// Start typing after loader
+setTimeout(typeEffect, 2200);
+
+/* ──────────────────────────────
+   7. SCROLL REVEAL
+────────────────────────────── */
+function triggerReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Unobserve after reveal (one-time animation)
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold:  0.1,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  document.querySelectorAll('.reveal, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+// If loader isn't shown (e.g. cached page), trigger immediately
+if (document.readyState === 'complete') {
+  setTimeout(triggerReveal, 100);
+}
+
+/* ──────────────────────────────
+   8. ANIMATED STAT COUNTERS
+────────────────────────────── */
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-target'), 10);
+  const suffix = el.getAttribute('data-suffix') || '';
+  const duration = 2000; // ms
+  const step = target / (duration / 16); // 60fps
+  let current = 0;
+
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+
+    // Format large numbers with commas
+    const display = Math.floor(current).toLocaleString('en-IN');
+    el.textContent = display + suffix;
+  }, 16);
+}
+
+// Trigger counters when stats section enters viewport
+const statsSection = document.getElementById('stats');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.stat-num').forEach(animateCounter);
+      counterObserver.disconnect(); // Only run once
+    }
+  });
+}, { threshold: 0.3 });
+
+if (statsSection) counterObserver.observe(statsSection);
+
+/* ──────────────────────────────
+   9. CONTACT FORM
+────────────────────────────── */
+const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+const submitBtn   = document.getElementById('submitBtn');
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Basic validation
+  const name    = document.getElementById('name').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !message) {
+    shakeForm();
+    return;
+  }
+  if (!isValidEmail(email)) {
+    document.getElementById('email').style.borderColor = '#f55';
+    setTimeout(() => {
+      document.getElementById('email').style.borderColor = '';
+    }, 2000);
+    return;
+  }
+
+  // Simulate sending
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+  setTimeout(() => {
+    submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sent!';
+    formSuccess.classList.add('show');
+    contactForm.reset();
+
+    // Reset button after 3 seconds
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      formSuccess.classList.remove('show');
+    }, 4000);
+  }, 1500);
+});
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function shakeForm() {
+  contactForm.style.animation = 'none';
+  contactForm.offsetHeight; // reflow
+  contactForm.style.animation = 'shake 0.4s ease';
+  setTimeout(() => { contactForm.style.animation = ''; }, 400);
+}
+
+// Add shake keyframes via JS (avoids extra CSS)
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+  @keyframes shake {
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-8px); }
+    40%{ transform:translateX(8px); }
+    60%{ transform:translateX(-5px); }
+    80%{ transform:translateX(5px); }
+  }
+`;
+document.head.appendChild(shakeStyle);
+
+/* ──────────────────────────────
+   10. SMOOTH SCROLL (all anchor links)
+────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80; // account for fixed navbar
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ──────────────────────────────
+   11. FLOATING BACKGROUND PARTICLES
+────────────────────────────── */
+(function createParticles() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  for (let i = 0; i < 20; i++) {
+    const dot = document.createElement('div');
+    const size = Math.random() * 3 + 1;
+    dot.style.cssText = `
+      position:absolute;
+      width:${size}px; height:${size}px;
+      border-radius:50%;
+      background:rgba(108,99,255,${Math.random() * 0.4 + 0.1});
+      top:${Math.random() * 100}%;
+      left:${Math.random() * 100}%;
+      pointer-events:none;
+      animation:floatDot ${Math.random() * 8 + 5}s ease-in-out ${Math.random() * 5}s infinite alternate;
+    `;
+    hero.appendChild(dot);
+  }
+
+  const particleStyle = document.createElement('style');
+  particleStyle.textContent = `
+    @keyframes floatDot {
+      from { transform:translate(0,0) scale(1); opacity:0.3; }
+      to   { transform:translate(${Math.random()*40-20}px,${Math.random()*60-30}px) scale(1.5); opacity:0.8; }
+    }
+  `;
+  document.head.appendChild(particleStyle);
+})();
+
+/* ──────────────────────────────
+   12. CARD TILT EFFECT (feature cards)
+────────────────────────────── */
+document.querySelectorAll('.feature-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / rect.height) * 8;
+    const rotY =  (x / rect.width)  * 8;
+    card.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+</script>
+</body>
+</html>
