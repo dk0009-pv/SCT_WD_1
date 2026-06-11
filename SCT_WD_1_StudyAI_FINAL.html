@@ -5,15 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StudyAI — Learn Smarter with AI</title>
   <style>
-/* ═══════════════════════════════════════════
-   StudyAI — style.css
-   Dark futuristic theme with glassmorphism
-   SCT_WD_1
-═══════════════════════════════════════════ */
 
-/* ── CSS Variables ── */
 :root {
-  /* Dark theme (default) */
+ 
   --bg:          #050510;
   --bg2:         #0a0a1f;
   --bg3:         #0f0f2a;
@@ -38,7 +32,6 @@
   --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* Light theme overrides */
 [data-theme="light"] {
   --bg:          #f0f0fa;
   --bg2:         #e8e8f5;
@@ -54,7 +47,6 @@
   --border:      rgba(0,0,0,0.08);
 }
 
-/* ── Reset & Base ── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
 html { scroll-behavior:smooth; }
@@ -71,7 +63,6 @@ a { text-decoration:none; color:inherit; }
 ul { list-style:none; }
 img { max-width:100%; }
 
-/* ── Utility ── */
 .container { max-width:1180px; margin:0 auto; padding:0 1.5rem; }
 
 .gradient-text {
@@ -84,7 +75,6 @@ img { max-width:100%; }
 .full-width { width:100%; justify-content:center; }
 .hide-mobile { display:inline; }
 
-/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -134,7 +124,6 @@ img { max-width:100%; }
   box-shadow: 0 0 20px var(--glow);
 }
 
-/* ── Loader ── */
 #loader {
   position: fixed;
   inset: 0;
@@ -175,7 +164,6 @@ img { max-width:100%; }
 @keyframes loaderAnim { from{width:0} to{width:100%} }
 .loader-text { font-size:0.8rem; color:var(--text-muted); letter-spacing:0.06em; }
 
-/* ── Back to Top ── */
 #backToTop {
   position: fixed;
   bottom: 2rem;
@@ -201,9 +189,6 @@ img { max-width:100%; }
 #backToTop.visible { opacity:1; transform:translateY(0); pointer-events:all; }
 #backToTop:hover { transform:translateY(-4px); box-shadow:0 0 32px var(--glow); }
 
-/* ══════════════════════════════════
-   NAVBAR
-══════════════════════════════════ */
 #navbar {
   position: fixed;
   top: 0; left: 0; width: 100%;
@@ -300,7 +285,6 @@ img { max-width:100%; }
   transition: all var(--transition);
 }
 
-/* ── Mobile overlay ── */
 .mobile-overlay {
   position: fixed;
   inset: 0;
@@ -342,9 +326,6 @@ img { max-width:100%; }
 }
 .overlay-links a:hover { color: var(--accent); }
 
-/* ══════════════════════════════════
-   HERO
-══════════════════════════════════ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -357,7 +338,6 @@ img { max-width:100%; }
   background: var(--bg);
 }
 
-/* Animated blobs */
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -375,7 +355,6 @@ img { max-width:100%; }
   to   { transform: translate(40px,30px) scale(1.08); }
 }
 
-/* Grid overlay */
 .hero-grid {
   position:absolute; inset:0;
   background-image:
@@ -435,7 +414,6 @@ img { max-width:100%; }
 
 .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
 
-/* AI card illustration */
 .hero-illustration {
   position: relative;
   flex-shrink: 0;
@@ -513,7 +491,6 @@ img { max-width:100%; }
 .ai-typing span:nth-child(3){ animation-delay:0.4s; }
 @keyframes typingDot { 0%,100%{transform:translateY(0);opacity:0.4} 50%{transform:translateY(-5px);opacity:1} }
 
-/* Orbit rings */
 .orbit {
   position:absolute;
   border-radius:50%;
@@ -525,7 +502,6 @@ img { max-width:100%; }
 .orbit-2 { width:520px; height:520px; top:50%; left:50%; transform:translate(-50%,-50%); animation-duration:30s; animation-direction:reverse; }
 @keyframes spin { to{ transform:translate(-50%,-50%) rotate(360deg); } }
 
-/* Float badges */
 .float-badge {
   position:absolute;
   background: var(--glass);
@@ -546,7 +522,7 @@ img { max-width:100%; }
 .badge-cp  { top:40%; left:-50px; color:#f7c948; animation-delay:-0.5s; }
 .badge-cp i { color:#f7c948; }
 
-/* Scroll indicator */
+
 .scroll-indicator {
   position:absolute;
   bottom:2rem; left:50%; transform:translateX(-50%);
@@ -564,9 +540,6 @@ img { max-width:100%; }
   100%{ transform:scaleY(0); transform-origin:bottom; opacity:0; }
 }
 
-/* ══════════════════════════════════
-   STATISTICS
-══════════════════════════════════ */
 .stats {
   padding:5rem 5vw;
   background:var(--bg2);
@@ -596,9 +569,6 @@ img { max-width:100%; }
 }
 .stat-label { font-size:0.85rem; color:var(--text-muted); font-weight:500; letter-spacing:0.04em; }
 
-/* ══════════════════════════════════
-   SECTIONS
-══════════════════════════════════ */
 .section {
   padding: 7rem 0;
   position:relative;
@@ -631,9 +601,6 @@ img { max-width:100%; }
 }
 .section-header p { color:var(--text-muted); font-size:1.05rem; max-width:520px; margin:0 auto; line-height:1.7; }
 
-/* ══════════════════════════════════
-   FEATURES
-══════════════════════════════════ */
 .features-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -686,9 +653,6 @@ img { max-width:100%; }
 }
 .feature-card p { font-size:0.9rem; color:var(--text-muted); line-height:1.7; }
 
-/* ══════════════════════════════════
-   HOW IT WORKS — TIMELINE
-══════════════════════════════════ */
 .timeline {
   position:relative;
   display:flex; flex-direction:column; gap:3rem;
@@ -739,9 +703,6 @@ img { max-width:100%; }
 }
 .step-card p { font-size:0.9rem; color:var(--text-muted); line-height:1.7; }
 
-/* ══════════════════════════════════
-   TESTIMONIALS
-══════════════════════════════════ */
 .testimonials-grid {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;
 }
@@ -773,9 +734,6 @@ img { max-width:100%; }
 .testi-name { font-weight:600; font-size:0.9rem; }
 .testi-role { font-size:0.78rem; color:var(--text-muted); }
 
-/* ══════════════════════════════════
-   PRICING
-══════════════════════════════════ */
 .pricing-grid {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;
   align-items:start;
@@ -824,9 +782,6 @@ img { max-width:100%; }
 .price-features li.disabled { opacity:0.4; }
 .price-features li.disabled i { color:var(--accent3); }
 
-/* ══════════════════════════════════
-   CONTACT
-══════════════════════════════════ */
 .contact-wrap {
   display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:start;
 }
@@ -890,9 +845,6 @@ img { max-width:100%; }
 .form-success.show { display:block; animation:fadeIn 0.4s ease; }
 @keyframes fadeIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
-/* ══════════════════════════════════
-   FOOTER
-══════════════════════════════════ */
 .footer {
   padding:5rem 0 2rem;
   border-top:1px solid var(--border);
@@ -932,9 +884,6 @@ img { max-width:100%; }
   font-size:0.82rem; color:var(--text-dim);
 }
 
-/* ══════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════ */
 .reveal {
   opacity:0;
   transform:translateY(32px);
@@ -956,9 +905,6 @@ img { max-width:100%; }
   transform:translateX(0);
 }
 
-/* ══════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════ */
 @media (max-width:1024px) {
   .hero { flex-direction:column; text-align:center; padding-top:10rem; }
   .hero-btns { justify-content:center; }
@@ -994,16 +940,11 @@ img { max-width:100%; }
 }
 
 </style>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       LOADING SCREEN
-  ═══════════════════════════════════════ -->
   <div id="loader">
     <div class="loader-inner">
       <div class="loader-logo">Study<span>AI</span></div>
@@ -1012,16 +953,10 @@ img { max-width:100%; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       BACK TO TOP
-  ═══════════════════════════════════════ -->
   <button id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-chevron-up"></i>
   </button>
 
-  <!-- ═══════════════════════════════════════
-       NAVBAR
-  ═══════════════════════════════════════ -->
   <nav id="navbar">
     <div class="nav-container">
       <a href="#home" class="nav-logo">Study<span>AI</span></a>
@@ -1036,11 +971,9 @@ img { max-width:100%; }
       </ul>
 
       <div class="nav-actions">
-        <!-- Dark/Light toggle -->
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
           <i class="fa-solid fa-moon" id="themeIcon"></i>
         </button>
-        <!-- Hamburger -->
         <button class="hamburger" id="hamburger" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
@@ -1048,7 +981,6 @@ img { max-width:100%; }
     </div>
   </nav>
 
-  <!-- Mobile overlay -->
   <div class="mobile-overlay" id="mobileOverlay">
     <button class="overlay-close" id="overlayClose" aria-label="Close menu">
       <i class="fa-solid fa-xmark"></i>
@@ -1063,15 +995,10 @@ img { max-width:100%; }
     </ul>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════ -->
   <section class="hero" id="home">
-    <!-- Floating BG blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
-    <!-- Grid overlay -->
     <div class="hero-grid"></div>
 
     <div class="hero-content reveal">
@@ -1084,7 +1011,6 @@ img { max-width:100%; }
       </div>
     </div>
 
-    <!-- Floating AI illustration -->
     <div class="hero-illustration reveal-right">
       <div class="ai-card">
         <div class="ai-card-header">
@@ -1103,7 +1029,6 @@ img { max-width:100%; }
         </div>
         <div class="ai-typing"><span></span><span></span><span></span></div>
       </div>
-      <!-- Orbiting rings -->
       <div class="orbit orbit-1"></div>
       <div class="orbit orbit-2"></div>
       <div class="float-badge badge-dsa"><i class="fa-solid fa-code"></i> DSA</div>
@@ -1111,16 +1036,12 @@ img { max-width:100%; }
       <div class="float-badge badge-cp"><i class="fa-solid fa-trophy"></i> CP</div>
     </div>
 
-    <!-- Scroll indicator -->
     <div class="scroll-indicator">
       <div class="scroll-line"></div>
       <span>Scroll</span>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       STATISTICS
-  ═══════════════════════════════════════ -->
   <section class="stats" id="stats">
     <div class="stats-grid">
       <div class="stat-card reveal">
@@ -1146,9 +1067,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       FEATURES
-  ═══════════════════════════════════════ -->
   <section class="section" id="features">
     <div class="container">
       <div class="section-header reveal">
@@ -1198,9 +1116,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       HOW IT WORKS
-  ═══════════════════════════════════════ -->
   <section class="section hiw-section" id="how-it-works">
     <div class="container">
       <div class="section-header reveal">
@@ -1247,9 +1162,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       TESTIMONIALS
-  ═══════════════════════════════════════ -->
   <section class="section" id="testimonials">
     <div class="container">
       <div class="section-header reveal">
@@ -1296,9 +1208,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       PRICING
-  ═══════════════════════════════════════ -->
   <section class="section" id="pricing">
     <div class="container">
       <div class="section-header reveal">
@@ -1308,7 +1217,6 @@ img { max-width:100%; }
       </div>
 
       <div class="pricing-grid">
-        <!-- Starter -->
         <div class="price-card reveal" style="--delay:0.1s">
           <div class="price-name">Starter</div>
           <div class="price-amount">₹0 <span>/month</span></div>
@@ -1324,7 +1232,6 @@ img { max-width:100%; }
           <a href="#" class="btn btn-ghost full-width">Get Started Free</a>
         </div>
 
-        <!-- Pro -->
         <div class="price-card featured reveal" style="--delay:0.2s">
           <div class="price-badge">Most Popular</div>
           <div class="price-name">Pro</div>
@@ -1341,7 +1248,6 @@ img { max-width:100%; }
           <a href="#" class="btn btn-primary full-width">Start Pro Trial</a>
         </div>
 
-        <!-- Enterprise -->
         <div class="price-card reveal" style="--delay:0.3s">
           <div class="price-name">Enterprise</div>
           <div class="price-amount">Custom</div>
@@ -1360,9 +1266,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       CONTACT
-  ═══════════════════════════════════════ -->
   <section class="section" id="contact">
     <div class="container">
       <div class="section-header reveal">
@@ -1417,9 +1320,6 @@ img { max-width:100%; }
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -1456,48 +1356,32 @@ img { max-width:100%; }
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 StudyAI Technologies. All rights reserved. &nbsp;|&nbsp; SCT_WD_1</p>
-        <p>Made with <i class="fa-solid fa-heart" style="color:#f55"></i> in Hyderabad</p>
+        <p>© 2026 StudyAI Technologies. All rights reserved. &nbsp;|&nbsp; SCT_WD_1</p>
+        <p>Made by DK</p>
       </div>
     </div>
   </footer>
 
   <script>
-/* ═══════════════════════════════════════════
-   StudyAI — script.js
-   All interactivity: loader, navbar, typing,
-   counters, scroll reveal, dark/light, form
-   SCT_WD_1
-═══════════════════════════════════════════ */
 
-/* ──────────────────────────────
-   1. LOADING SCREEN
-────────────────────────────── */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
 
-  // Hide loader after 2 seconds (matches CSS animation of loader-fill)
   setTimeout(() => {
     loader.classList.add('hidden');
-    // Trigger hero reveal animations after loader hides
+   
     triggerReveal();
   }, 2000);
 });
 
-/* ──────────────────────────────
-   2. NAVBAR — scroll behaviour
-────────────────────────────── */
 const navbar   = document.getElementById('navbar');
 const navLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
-  // Glassmorphism on scroll
   navbar.classList.toggle('scrolled', window.scrollY > 60);
 
-  // Back-to-top visibility
   document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
 
-  // Active nav link based on section in view
   updateActiveNav();
 });
 
@@ -1520,9 +1404,6 @@ function updateActiveNav() {
   });
 }
 
-/* ──────────────────────────────
-   3. MOBILE MENU
-────────────────────────────── */
 const hamburger    = document.getElementById('hamburger');
 const mobileOverlay = document.getElementById('mobileOverlay');
 const overlayClose = document.getElementById('overlayClose');
@@ -1539,19 +1420,14 @@ function closeMenu() {
 
 overlayClose.addEventListener('click', closeMenu);
 
-// Close when any overlay link is clicked
 document.querySelectorAll('.overlay-links a').forEach(a => {
   a.addEventListener('click', closeMenu);
 });
 
-/* ──────────────────────────────
-   4. DARK / LIGHT MODE TOGGLE
-────────────────────────────── */
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = document.getElementById('themeIcon');
 const htmlEl      = document.documentElement;
 
-// Persist preference
 const savedTheme = localStorage.getItem('studyai-theme') || 'dark';
 htmlEl.setAttribute('data-theme', savedTheme);
 updateThemeIcon(savedTheme);
@@ -1568,16 +1444,10 @@ function updateThemeIcon(theme) {
   themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 }
 
-/* ──────────────────────────────
-   5. BACK TO TOP
-────────────────────────────── */
 document.getElementById('backToTop').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* ──────────────────────────────
-   6. TYPING TEXT EFFECT (Hero)
-────────────────────────────── */
 const typingTarget = document.getElementById('typingTarget');
 const words = ['Smarter', 'Faster', 'Deeper', 'Better'];
 let wordIdx  = 0;
@@ -1588,17 +1458,14 @@ function typeEffect() {
   const currentWord = words[wordIdx];
 
   if (!deleting) {
-    // Typing forward
     typingTarget.textContent = currentWord.slice(0, charIdx + 1);
     charIdx++;
     if (charIdx === currentWord.length) {
-      // Pause before deleting
       deleting = true;
       setTimeout(typeEffect, 1800);
       return;
     }
   } else {
-    // Deleting
     typingTarget.textContent = currentWord.slice(0, charIdx - 1);
     charIdx--;
     if (charIdx === 0) {
@@ -1611,18 +1478,13 @@ function typeEffect() {
   setTimeout(typeEffect, speed);
 }
 
-// Start typing after loader
 setTimeout(typeEffect, 2200);
 
-/* ──────────────────────────────
-   7. SCROLL REVEAL
-────────────────────────────── */
 function triggerReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Unobserve after reveal (one-time animation)
         observer.unobserve(entry.target);
       }
     });
@@ -1636,19 +1498,15 @@ function triggerReveal() {
   });
 }
 
-// If loader isn't shown (e.g. cached page), trigger immediately
 if (document.readyState === 'complete') {
   setTimeout(triggerReveal, 100);
 }
 
-/* ──────────────────────────────
-   8. ANIMATED STAT COUNTERS
-────────────────────────────── */
 function animateCounter(el) {
   const target = parseInt(el.getAttribute('data-target'), 10);
   const suffix = el.getAttribute('data-suffix') || '';
-  const duration = 2000; // ms
-  const step = target / (duration / 16); // 60fps
+  const duration = 2000; 
+  const step = target / (duration / 16); 
   let current = 0;
 
   const timer = setInterval(() => {
@@ -1658,28 +1516,23 @@ function animateCounter(el) {
       clearInterval(timer);
     }
 
-    // Format large numbers with commas
     const display = Math.floor(current).toLocaleString('en-IN');
     el.textContent = display + suffix;
   }, 16);
 }
 
-// Trigger counters when stats section enters viewport
 const statsSection = document.getElementById('stats');
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       document.querySelectorAll('.stat-num').forEach(animateCounter);
-      counterObserver.disconnect(); // Only run once
+      counterObserver.disconnect(); 
     }
   });
 }, { threshold: 0.3 });
 
 if (statsSection) counterObserver.observe(statsSection);
 
-/* ──────────────────────────────
-   9. CONTACT FORM
-────────────────────────────── */
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
 const submitBtn   = document.getElementById('submitBtn');
@@ -1687,7 +1540,6 @@ const submitBtn   = document.getElementById('submitBtn');
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // Basic validation
   const name    = document.getElementById('name').value.trim();
   const email   = document.getElementById('email').value.trim();
   const message = document.getElementById('message').value.trim();
@@ -1704,7 +1556,6 @@ contactForm.addEventListener('submit', (e) => {
     return;
   }
 
-  // Simulate sending
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
@@ -1713,7 +1564,6 @@ contactForm.addEventListener('submit', (e) => {
     formSuccess.classList.add('show');
     contactForm.reset();
 
-    // Reset button after 3 seconds
     setTimeout(() => {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
@@ -1728,12 +1578,11 @@ function isValidEmail(email) {
 
 function shakeForm() {
   contactForm.style.animation = 'none';
-  contactForm.offsetHeight; // reflow
+  contactForm.offsetHeight; 
   contactForm.style.animation = 'shake 0.4s ease';
   setTimeout(() => { contactForm.style.animation = ''; }, 400);
 }
 
-// Add shake keyframes via JS (avoids extra CSS)
 const shakeStyle = document.createElement('style');
 shakeStyle.textContent = `
   @keyframes shake {
@@ -1746,24 +1595,18 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
-/* ──────────────────────────────
-   10. SMOOTH SCROLL (all anchor links)
-────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      const offset = 80; // account for fixed navbar
+      const offset = 80;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
   });
 });
 
-/* ──────────────────────────────
-   11. FLOATING BACKGROUND PARTICLES
-────────────────────────────── */
 (function createParticles() {
   const hero = document.querySelector('.hero');
   if (!hero) return;
@@ -1794,9 +1637,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   document.head.appendChild(particleStyle);
 })();
 
-/* ──────────────────────────────
-   12. CARD TILT EFFECT (feature cards)
-────────────────────────────── */
 document.querySelectorAll('.feature-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
