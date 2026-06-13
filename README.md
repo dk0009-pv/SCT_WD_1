@@ -204,7 +204,7 @@ The layout automatically adapts to different screen sizes for a seamless user ex
 SCT_WD_1/
 
 ├── index.html
-└── README.md
+  └── README.md
 The project follows a single-file architecture where HTML, CSS, and JavaScript are integrated within the index.html file. This approach simplifies deployment and allows the project to run directly in any modern web browser without additional setup.
 
 ---
