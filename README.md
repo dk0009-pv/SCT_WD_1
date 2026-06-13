@@ -1,24 +1,24 @@
-# StudyAI — Premium AI Learning Assistant Landing Page
+# StudyAI — AI Learning Assistant Landing Page
 
-**StudyAI** | SkillCraft Technology | HTML5 CSS3 JavaScript
+A modern, responsive, and interactive AI Learning Assistant Landing Page built using HTML5, CSS3, and JavaScript as part of the SkillCraft Technology Web Development Internship — Task 01.
 
-A premium responsive landing page designed to help students learn smarter using Artificial Intelligence for coding, DSA practice, interview preparation, and academic success.
+StudyAI showcases how Artificial Intelligence can transform the learning experience for students through coding practice, DSA preparation, interview readiness, and personalized learning support.
 
 ---
 
 ## Overview
 
-StudyAI is a modern responsive landing page built to showcase how Artificial Intelligence can transform the learning experience for students and aspiring software engineers.
+StudyAI is a modern responsive landing page built to demonstrate how Artificial Intelligence can enhance learning for students and aspiring software engineers.
 
-This project was developed as part of **SkillCraft Technology – Web Development Internship Task 01**.
+This project was developed as part of the SkillCraft Technology Web Development Internship — Task 01.
 
-Instead of creating a generic business website, StudyAI focuses on a real-world educational use case by presenting an AI-powered learning platform that helps students improve their coding skills, prepare for interviews, solve DSA problems, and track learning progress.
+Instead of creating a generic business website, StudyAI focuses on a real-world educational use case by presenting an AI-powered learning platform that helps students improve coding skills, prepare for interviews, solve DSA problems, and track learning progress.
 
 The website combines modern UI design, responsive layouts, interactive animations, and professional frontend development practices.
 
 ---
 
-# Internship Details
+## Internship Details
 
 | Field           | Details                 |
 | --------------- | ----------------------- |
@@ -33,9 +33,9 @@ The website combines modern UI design, responsive layouts, interactive animation
 
 ---
 
-# Project Objective
+## Project Objective
 
-The objective of this task was to create a responsive landing page with:
+The objective of this task was to create a responsive landing page featuring:
 
 * Fixed navigation menu
 * Scroll-based navbar effects
@@ -48,7 +48,7 @@ StudyAI fulfills these requirements while showcasing a practical AI-powered educ
 
 ---
 
-# Why StudyAI?
+## Why StudyAI?
 
 Many students struggle with:
 
@@ -62,9 +62,9 @@ StudyAI demonstrates how AI can help students learn more efficiently through int
 
 ---
 
-# Key Features
+## Key Features
 
-## Fixed Interactive Navbar
+### Fixed Interactive Navbar
 
 The navigation bar remains fixed at the top of the page and includes:
 
@@ -75,9 +75,7 @@ The navigation bar remains fixed at the top of the page and includes:
 * Mobile hamburger menu
 * Smooth scrolling navigation
 
----
-
-## Premium AI-Themed Interface
+### AI-Themed Interface
 
 The website follows a futuristic AI-inspired design system featuring:
 
@@ -89,9 +87,7 @@ The website follows a futuristic AI-inspired design system featuring:
 * Smooth transitions
 * Professional typography
 
----
-
-## AI Learning Sections
+### AI Learning Sections
 
 | Section      | Purpose                             |
 | ------------ | ----------------------------------- |
@@ -102,52 +98,46 @@ The website follows a futuristic AI-inspired design system featuring:
 | Pricing      | Presents subscription plans         |
 | Contact      | Allows users to get in touch        |
 
----
+### AI Features Highlighted
 
-## AI Features Highlighted
-
-### AI Tutor
+#### AI Tutor
 
 Provides personalized explanations and learning support.
 
-### DSA Practice
+#### DSA Practice
 
 Helps students solve coding challenges with guided hints.
 
-### Mock Interviews
+#### Mock Interviews
 
 Simulates technical interviews with AI-generated questions.
 
-### Resume Review
+#### Resume Review
 
 Analyzes resumes and suggests improvements.
 
-### Coding Challenges
+#### Coding Challenges
 
 Offers daily practice problems to improve coding skills.
 
-### Progress Tracking
+#### Progress Tracking
 
 Monitors learning growth and performance over time.
 
----
-
-## Animated Visual Elements
+### Animated Visual Elements
 
 The interface includes:
 
 * Animated background particles
 * Floating AI cards
-* Typing text effect
+* Typing text effects
 * Gradient text animations
 * Scroll reveal animations
 * Hover effects
 * Animated counters
 * Interactive feature cards
 
----
-
-## Statistics Section
+### Statistics Section
 
 Animated counters display platform impact:
 
@@ -156,63 +146,58 @@ Animated counters display platform impact:
 * 95% Success Rate
 * 24/7 AI Assistance
 
----
+### Pricing Plans
 
-## Pricing Plans
-
-### Starter
+#### Starter
 
 Perfect for beginners starting their learning journey.
 
-### Pro
+#### Pro
 
-Most popular plan with full AI-powered features.
+Includes complete AI-powered learning features.
 
-### Enterprise
+#### Enterprise
 
 Advanced solution for institutions and organizations.
 
----
-
-## Responsive Design
+### Responsive Design
 
 StudyAI is optimized for:
 
 * Desktop
 * Laptop
 * Tablet
-* Mobile devices
+* Mobile Devices
 
 The layout automatically adapts to different screen sizes for a seamless user experience.
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-| Technology   | Usage                               |
-| ------------ | ----------------------------------- |
-| HTML5        | Structure and semantic layout       |
-| CSS3         | Styling, animations, responsiveness |
-| JavaScript   | Interactivity and dynamic behavior  |
-| Google Fonts | Modern typography                   |
-| Font Awesome | Icons and UI enhancements           |
+| Technology   | Usage                                   |
+| ------------ | --------------------------------------- |
+| HTML5        | Structure and Semantic Layout           |
+| CSS3         | Styling, Animations, and Responsiveness |
+| JavaScript   | Interactivity and Dynamic Behavior      |
+| Google Fonts | Modern Typography                       |
+| Font Awesome | Icons and UI Enhancements               |
 
 ---
 
-# File Structure
+## File Structure
 
 ```text
 SCT_WD_1/
 │
 └── index.html
 ```
+
 The project follows a single-file architecture where HTML, CSS, and JavaScript are integrated within the `index.html` file. This approach simplifies deployment and allows the project to run directly in any modern web browser without additional setup.
 
-```
----
 ---
 
-# Task Requirements Checklist
+## Task Requirements Checklist
 
 | Requirement                    | Status    |
 | ------------------------------ | --------- |
@@ -228,94 +213,62 @@ The project follows a single-file architecture where HTML, CSS, and JavaScript a
 
 ---
 
-# Learning Outcomes
+## Learning Outcomes
 
 While building this project, I practiced:
 
-* Responsive web design
-* HTML semantic structure
+* Responsive Web Design
+* HTML Semantic Structure
 * CSS Flexbox and Grid
-* JavaScript DOM manipulation
-* Scroll event handling
-* Mobile navigation systems
-* UI/UX design principles
-* Frontend animations
-* Modern web development practices
+* JavaScript DOM Manipulation
+* Scroll Event Handling
+* Mobile Navigation Systems
+* UI/UX Design Principles
+* Frontend Animations
+* Modern Web Development Practices
 
 ---
 
-# How to Run Locally
+## How to Run Locally
 
-Clone the repository:
+### Clone Repository
 
+```bash
 git clone https://github.com/dk0009-pv/SCT_WD_1.git
+```
 
-Open the project folder:
+### Navigate to Project Folder
 
+```bash
 cd SCT_WD_1
+```
 
-Run:
+### Run the Application
 
-index.html
+Open `index.html` in any modern web browser.
 
 No installation or build step is required.
 
 ---
 
-# Recommended Repository Description
-
-Premium AI-powered learning assistant landing page built using HTML, CSS, and JavaScript for SkillCraft Technology Web Development Task 01.
-
----
-
-# Recommended GitHub Topics
-
-html
-
-css
-
-javascript
-
-responsive-design
-
-landing-page
-
-ai
-
-education
-
-frontend
-
-web-development
-
-skillcraft-technology
-
-internship-task
-
-student-learning
-
-ui-ux
-
----
-
-# Future Improvements
+## Future Improvements
 
 Possible upgrades include:
 
-* AI chatbot integration
-* Personalized learning dashboard
-* Coding challenge platform
-* Student authentication system
-* Progress analytics
-* Dark/light mode switch
-* Learning streak tracking
-* Real AI API integration
+* AI Chatbot Integration
+* Personalized Learning Dashboard
+* Coding Challenge Platform
+* Student Authentication System
+* Progress Analytics
+* Dark/Light Mode Toggle
+* Learning Streak Tracking
+* Real AI API Integration
 
 ---
 
-# Author
+## Author
 
-Dinesh Kumar Pulagalla
+**Dinesh Kumar Pulagalla**
 
 Web Development Intern
 
@@ -325,7 +278,7 @@ Intern ID: SCT/JUNE26/2530
 
 ---
 
-# Acknowledgement
+## Acknowledgement
 
 This project was developed as part of the SkillCraft Technology Web Development Internship.
 
@@ -333,10 +286,15 @@ The task helped strengthen my understanding of responsive web design, navigation
 
 ---
 
-# License
+## License
 
 This project is created for educational and internship submission purposes.
 
 ---
 
-# StudyAI — Learn Smarter. Code Better. Grow Faster.
+## Footer Credit
+
+Built by Dinesh Kumar Pulagalla · SkillCraft Technology Web Development Task 01
+
+### StudyAI — Learn Smarter. Code Better. Grow Faster.
+
